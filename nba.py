@@ -40,3 +40,19 @@ def get_tables():
   """
   url = "https://www.oddsshark.com/nba/computer-picks"
   response = get_url(url)
+
+  if response is not None:
+    html = BeautifulSoup(response, 'html.parser')
+    
+    tables = html.select('table')
+    game_tables = tables[:-1]
+    
+    
+    for table in game_tables:
+      for caption in table.select('caption'):
+        print(caption.select('.table__name-short')[0].text)
+        print(caption.select('.table__name-short')[1].text)
+      print("=================")
+
+
+get_tables()
