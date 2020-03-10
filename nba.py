@@ -33,3 +33,10 @@ def log_error(e):
   prints the error if it exists
   """
   print(e)
+
+def get_tables():
+  """
+  Downloads and parses through html tables containing scoring and betting info
+  """
+  url = "https://www.oddsshark.com/nba/computer-picks"
+  response = get_url(url)
