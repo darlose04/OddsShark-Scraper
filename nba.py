@@ -18,3 +18,12 @@ def get_url(url):
   except RequestException as e:
     log_error('Error during request to {0} : {1}'.format(url, str(e)))
     return None
+
+
+
+
+def log_error(e):
+  """
+  prints the error if it exists
+  """
+  print(e)
