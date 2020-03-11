@@ -54,10 +54,15 @@ def get_tables():
         home_team = caption.select('.table__name-short')[1].text
         print("{0} at {1}".format(away_team, home_team))
       for item in table.select('tbody > tr > td'):
+        print(item.text)
         if table.select('tbody > tr > td').index(item) == 1:
-          # print(item.text)
-          predictedScore = item.text
-          print(predictedScore)
+          predictedScore = item.text.split()
+          # print(predictedScore)
+          away_team_score = float(predictedScore[0])
+          home_team_score = float(predictedScore[2])
+          print("Away Score: {0}".format(away_team_score))
+          print("Home Score: {0}".format(home_team_score))
+        
         
 
       print("=================")
