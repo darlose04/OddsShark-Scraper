@@ -55,26 +55,33 @@ def get_tables():
     
     
     for table in game_tables:
+      game_dict = {}
       
       for caption in table.select('caption'):
         away_team = caption.select('.table__name-short')[0].text
+        game_dict['Away Team'] = away_team
         home_team = caption.select('.table__name-short')[1].text
-        
+        game_dict['Home Team'] = home_team
       
       for item in table.select('tbody > tr > td'):
         
         if table.select('tbody > tr > td').index(item) == 1:
           predictedScore = item.text.split()
           away_team_score = float(predictedScore[0])
+          game_dict['Away Score'] = away_team_score
           home_team_score = float(predictedScore[2])
+          game_dict['Home Score'] = home_team_score
           total_score = away_team_score + home_team_score
+          game_dict['Total Score'] = total_score
           
 
         if table.select('tbody > tr > td').index(item) == 4:
           computer_spread_pick = item.text
+          game_dict['Computer Spread Pick'] = computer_spread_pick
         
         if table.select('tbody > tr > td').index(item) == 5:
           computer_OU_pick = item.text
+          game_dict['Computer O/U Pick'] = computer_OU_pick
 
         if item.text == "Public Consensus":
 
@@ -82,33 +89,23 @@ def get_tables():
             
             if row.text.split()[0] == away_team or row.text.split()[0] == home_team:
               public_spread_pick = row.text
+              game_dict['Public Spread Pick'] = public_spread_pick
 
             if row.text.split()[0] == 'Over' or row.text.split()[0] == 'Under':
               public_OU_pick = row.text
+              game_dict['Public O/U Pick'] = public_OU_pick
         
         if table.select('tbody > tr > td').index(item) == 10:
           public_spread_percent = item.text
+          game_dict['Consensus Spread %'] = public_spread_percent
           
 
         if table.select('tbody > tr > td').index(item) == 11:
           public_OU_percent = item.text
+          game_dict['Consensus O/U %'] = public_OU_percent
           
 
-        game_dict = {
-          'away_team': away_team,
-          'home_team': home_team,
-          'predicted_away_score': away_team_score,
-          'predicted_home_score': home_team_score,
-          'total_score': total_score,
-          'comp_spread_pick': computer_spread_pick,
-          'comp_ou_pick': computer_OU_pick,
-          'public_spread_pick': public_spread_pick,
-          'public_ou_pick': public_OU_pick,
-          'public_consensus_spread_%': public_spread_percent,
-          'public_consensus_ou_%': public_OU_percent
-        }
-
-        game_info.append(game_dict)
+      game_info.append(game_dict)
       # print("=================")
       # print("{0} at {1}".format(away_team, home_team))
       # print("Predicted Away Score: {0}".format(away_team_score))
@@ -120,18 +117,18 @@ def get_tables():
       # print("Public O/U Pick: {0}".format(public_OU_pick))
       # print("Consensus Spread %: {0}".format(public_spread_percent))
       # print("Consensus O/U %: {0}".format(public_OU_percent))
-    pp.pprint(game_info)
+    # pp.pprint(game_info)
 
-  # csv_columns = ['Away Team', 'Home Team', 'Away Score', 'Home Score', 'Total Score', 'Computer Spread Pick', 'Computer O/U Pick', 'Public Spread Pick', 'Public O/U Pick', 'Consensus Spread %', 'Consensus O/U %']
+  csv_columns = ['Away Team', 'Home Team', 'Away Score', 'Home Score', 'Total Score', 'Computer Spread Pick', 'Computer O/U Pick', 'Public Spread Pick', 'Public O/U Pick', 'Consensus Spread %', 'Consensus O/U %']
 
-  # csv_file = "NBABets.csv"
-  # try:
-  #   with open(csv_file, 'w') as csvfile:
-  #     writer = csv.DictWriter(csvfile, fieldnames=csv_columns)
-  #     writer.writeheader()
-  #     for data in game_info:
-  #       writer.writerow(data)
-  # except IOError:
-  #   print("I/O error")
+  csv_file = "NBABets.csv"
+  try:
+    with open(csv_file, 'w') as csvfile:
+      writer = csv.DictWriter(csvfile, fieldnames=csv_columns)
+      writer.writeheader()
+      for data in game_info:
+        writer.writerow(data)
+  except IOError:
+    print("I/O error")
       
 get_tables()
