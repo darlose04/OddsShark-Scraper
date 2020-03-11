@@ -49,20 +49,29 @@ def get_tables():
     
     
     for table in game_tables:
+      
       for caption in table.select('caption'):
         away_team = caption.select('.table__name-short')[0].text
         home_team = caption.select('.table__name-short')[1].text
         print("{0} at {1}".format(away_team, home_team))
+      
       for item in table.select('tbody > tr > td'):
         print(item.text)
+        
         if table.select('tbody > tr > td').index(item) == 1:
           predictedScore = item.text.split()
           # print(predictedScore)
           away_team_score = float(predictedScore[0])
           home_team_score = float(predictedScore[2])
-          print("Away Score: {0}".format(away_team_score))
-          print("Home Score: {0}".format(home_team_score))
-        
+          total_score = away_team_score + home_team_score
+          # print("Total Score: {0}".format(total_score))
+          # print("Away Score: {0}".format(away_team_score))
+          # print("Home Score: {0}".format(home_team_score))
+
+        if table.select('tbody > tr > td').index(item) == 4:
+          computer_spread_pick = item.text
+          # print("Computer Spread Pick: {0}".format(computer_spread_pick))
+          
         
 
       print("=================")
