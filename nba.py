@@ -3,6 +3,7 @@ from requests.exceptions import RequestException
 from contextlib import closing
 from bs4 import BeautifulSoup
 import pprint
+import csv
 
 pp = pprint.PrettyPrinter(indent=2, sort_dicts=False)
 
@@ -93,21 +94,21 @@ def get_tables():
           public_OU_percent = item.text
           
 
-      game_dict = {
-        'away_team': away_team,
-        'home_team': home_team,
-        'predicted_away_score': away_team_score,
-        'predicted_home_score': home_team_score,
-        'total_score': total_score,
-        'comp_spread_pick': computer_spread_pick,
-        'comp_ou_pick': computer_OU_pick,
-        'public_spread_pick': public_spread_pick,
-        'public_ou_pick': public_OU_pick,
-        'public_consensus_spread_%': public_spread_percent,
-        'public_consensus_ou_%': public_OU_percent
-      }
+        game_dict = {
+          'away_team': away_team,
+          'home_team': home_team,
+          'predicted_away_score': away_team_score,
+          'predicted_home_score': home_team_score,
+          'total_score': total_score,
+          'comp_spread_pick': computer_spread_pick,
+          'comp_ou_pick': computer_OU_pick,
+          'public_spread_pick': public_spread_pick,
+          'public_ou_pick': public_OU_pick,
+          'public_consensus_spread_%': public_spread_percent,
+          'public_consensus_ou_%': public_OU_percent
+        }
 
-      game_info.append(game_dict)
+        game_info.append(game_dict)
       # print("=================")
       # print("{0} at {1}".format(away_team, home_team))
       # print("Predicted Away Score: {0}".format(away_team_score))
@@ -119,8 +120,18 @@ def get_tables():
       # print("Public O/U Pick: {0}".format(public_OU_pick))
       # print("Consensus Spread %: {0}".format(public_spread_percent))
       # print("Consensus O/U %: {0}".format(public_OU_percent))
-  pp.pprint(game_info)
-      
-  
+    pp.pprint(game_info)
 
+  # csv_columns = ['Away Team', 'Home Team', 'Away Score', 'Home Score', 'Total Score', 'Computer Spread Pick', 'Computer O/U Pick', 'Public Spread Pick', 'Public O/U Pick', 'Consensus Spread %', 'Consensus O/U %']
+
+  # csv_file = "NBABets.csv"
+  # try:
+  #   with open(csv_file, 'w') as csvfile:
+  #     writer = csv.DictWriter(csvfile, fieldnames=csv_columns)
+  #     writer.writeheader()
+  #     for data in game_info:
+  #       writer.writerow(data)
+  # except IOError:
+  #   print("I/O error")
+      
 get_tables()
