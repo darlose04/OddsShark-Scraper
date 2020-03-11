@@ -50,9 +50,15 @@ def get_tables():
     
     for table in game_tables:
       for caption in table.select('caption'):
-        print(caption.select('.table__name-short')[0].text)
-        print(caption.select('.table__name-short')[1].text)
+        away_team = caption.select('.table__name-short')[0].text
+        home_team = caption.select('.table__name-short')[1].text
+        print("{0} at {1}".format(away_team, home_team))
+      for item in table.select('tbody > tr > td'):
+        print(item.text)
+        
+
       print("=================")
+      
 
 
 get_tables()
