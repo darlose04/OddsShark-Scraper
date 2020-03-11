@@ -54,7 +54,8 @@ def get_tables():
         home_team = caption.select('.table__name-short')[1].text
         print("{0} at {1}".format(away_team, home_team))
       for item in table.select('tbody > tr > td'):
-        print(item.text)
+        if table.select('tbody > tr > td').index(item) == 1:
+          print(item.text)
         
 
       print("=================")
