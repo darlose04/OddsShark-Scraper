@@ -59,7 +59,7 @@ def get_tables():
       
       for item in table.select('tbody > tr > td'):
         print(item.text)
-        print(item.next_sibling)
+        
         
         if table.select('tbody > tr > td').index(item) == 1:
           predictedScore = item.text.split()
@@ -78,6 +78,20 @@ def get_tables():
         if table.select('tbody > tr > td').index(item) == 5:
           computer_OU_pick = item.text
           # print("Computer Over Under Pick: {0}".format(computer_OU_pick))
+
+        if item.text == "Public Consensus":
+
+          for row in item.next_siblings:
+            # print(row.text.split()[1])
+            if row.text.split()[0] == away_team or row.text.split()[0] == home_team:
+              public_spread_pick = row.text
+              print("Public Spread Pick: {0}".format(public_spread_pick))
+             
+            
+          
+          
+            
+        
         
         # if table.select('tbody > tr > td').index(item) == 7:
         #   public_spread_pick = item.text
