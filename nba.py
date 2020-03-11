@@ -46,6 +46,8 @@ def get_tables():
     
     tables = html.select('table')
     game_tables = tables[:-1]
+
+    game_info = []
     
     
     for table in game_tables:
@@ -53,10 +55,11 @@ def get_tables():
       for caption in table.select('caption'):
         away_team = caption.select('.table__name-short')[0].text
         home_team = caption.select('.table__name-short')[1].text
-        print("{0} at {1}".format(away_team, home_team))
+        # print("{0} at {1}".format(away_team, home_team))
       
       for item in table.select('tbody > tr > td'):
         print(item.text)
+        print(item.next_sibling)
         
         if table.select('tbody > tr > td').index(item) == 1:
           predictedScore = item.text.split()
@@ -76,6 +79,14 @@ def get_tables():
           computer_OU_pick = item.text
           # print("Computer Over Under Pick: {0}".format(computer_OU_pick))
         
+        # if table.select('tbody > tr > td').index(item) == 7:
+        #   public_spread_pick = item.text
+        #   # print("Public Spread: {0}".format(public_spread_pick))
+
+        # if table.select('tbody > tr > td').index(item) == 8:
+        #   public_OU_pick = item.text
+        #   # print("Public O/U Pick: {0}".format(public_OU_pick))
+
 
       print("=================")
       
