@@ -82,12 +82,16 @@ def get_tables():
         if item.text == "Public Consensus":
 
           for row in item.next_siblings:
-            # print(row.text.split()[1])
+            
             if row.text.split()[0] == away_team or row.text.split()[0] == home_team:
               public_spread_pick = row.text
               print("Public Spread Pick: {0}".format(public_spread_pick))
+
+            if row.text.split()[0] == 'Over' or row.text.split()[0] == 'Under':
+              public_OU_pick = row.text
+              print("Public O/U Pick: {0}".format(public_OU_pick))
              
-            
+          
           
           
             
