@@ -71,7 +71,10 @@ def get_tables():
         if table.select('tbody > tr > td').index(item) == 4:
           computer_spread_pick = item.text
           # print("Computer Spread Pick: {0}".format(computer_spread_pick))
-          
+        
+        if table.select('tbody > tr > td').index(item) == 5:
+          computer_OU_pick = item.text
+          # print("Computer Over Under Pick: {0}".format(computer_OU_pick))
         
 
       print("=================")
