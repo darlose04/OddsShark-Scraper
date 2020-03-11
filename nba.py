@@ -55,7 +55,9 @@ def get_tables():
         print("{0} at {1}".format(away_team, home_team))
       for item in table.select('tbody > tr > td'):
         if table.select('tbody > tr > td').index(item) == 1:
-          print(item.text)
+          # print(item.text)
+          predictedScore = item.text
+          print(predictedScore)
         
 
       print("=================")
