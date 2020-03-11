@@ -2,6 +2,9 @@ from requests import get
 from requests.exceptions import RequestException
 from contextlib import closing
 from bs4 import BeautifulSoup
+import pprint
+
+pp = pprint.PrettyPrinter(indent=2, sort_dicts=False)
 
 def get_url(url):
   """
@@ -116,7 +119,7 @@ def get_tables():
       # print("Public O/U Pick: {0}".format(public_OU_pick))
       # print("Consensus Spread %: {0}".format(public_spread_percent))
       # print("Consensus O/U %: {0}".format(public_OU_percent))
-  print(game_info)
+  pp.pprint(game_info)
       
   
 
