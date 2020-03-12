@@ -92,12 +92,10 @@ def get_tables():
               continue
             
             if row.text.split()[0] == away_team or row.text.split()[0] == home_team:
-              print(row.text)
               public_spread_pick = row.text
               game_dict['Public Spread Pick'] = public_spread_pick
 
             if row.text.split()[0] == 'Over' or row.text.split()[0] == 'Under' or row.text.split()[0] == '':
-              print(row.text)
               public_OU_pick = row.text
               game_dict['Public O/U Pick'] = public_OU_pick
         
